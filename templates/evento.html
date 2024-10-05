@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main>
+    <h2>Cadastrar Evento</h2>
+
+    <form action="submit" method="POST">{% csrf_token %}
+        <label>Título</label>
+        <br>
+        <input type="text" name="titulo" size="23">
+        <br><br>
+        <label>Data do Evento</label>
+        <br>
+        <input type="datetime-local" name="data_evento">
+        <br><br>
+        <label>Descrição</label>
+        <br>
+        <textarea name="descricao" rows="5" cols="24"></textarea>
+        <br><br>
+        <button type="submit">Salvar</button>
+        <a href="{% url 'lista_eventos' %}">
+            <button type="button">Cancelar</button>
+        </a>
+    </form>
+</main>
+
+{% endblock %}

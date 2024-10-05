@@ -5,6 +5,10 @@
 <main>
     <h2>Agendamentos</h2>
 
+    <a href="{% url 'evento' %}">
+    <button type="button">Novo Evento</button>
+    </a>
+
     {% for evento in eventos %}
         <ul>
             <li>{{ evento.titulo }} - {{  evento.get_data_evento }}</li>
