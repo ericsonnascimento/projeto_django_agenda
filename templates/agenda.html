@@ -11,7 +11,12 @@
 
     {% for evento in eventos %}
         <ul>
-            <li>{{ evento.titulo }} - {{  evento.get_data_evento }}</li>
+            <li>{{ evento.id }} - {{ evento.titulo }} - {{  evento.get_data_evento }}
+                (
+                    <a href="evento/?id={{ evento.id }}">Editar</a> -
+                    <a href="{% url 'delete_evento' evento.id %}">Excluir</a>
+                )
+            </li>
         </ul>    
     {% endfor %}
 

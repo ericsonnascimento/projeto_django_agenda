@@ -6,17 +6,18 @@
     <h2>Cadastrar Evento</h2>
 
     <form action="submit" method="POST">{% csrf_token %}
+        <input type="namber" name="id_evento" value="{{ evento.id }}" hidden> <!--aqui estamos entregando a função submit o id do objeto--> 
         <label>Título</label>
         <br>
-        <input type="text" name="titulo" size="23">
+        <input type="text" name="titulo" size="23" value="{{ evento.titulo }}"> <!--para refletir nos campos preenchendo automaticamente utilizamos o value-->
         <br><br>
         <label>Data do Evento</label>
         <br>
-        <input type="datetime-local" name="data_evento">
+        <input type="datetime-local" name="data_evento" value="{{ evento.get_data_input_evento }}">
         <br><br>
         <label>Descrição</label>
         <br>
-        <textarea name="descricao" rows="5" cols="24"></textarea>
+        <textarea name="descricao" rows="5" cols="24">{{ evento.descricao }}</textarea> <!--no textarea o value fica dentro do local do texto--> 
         <br><br>
         <button type="submit">Salvar</button>
         <a href="{% url 'lista_eventos' %}">

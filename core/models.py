@@ -16,3 +16,6 @@ class Evento(models.Model):
     
     def get_data_evento(self):
         return self.data_evento.strftime('%d/%m/%Y %H:%M hrs')
+    
+    def get_data_input_evento(self): #criando uma função para data e hora que o navegador entende, isso é para o auto preenchimento da data e hora do editar em evento.html
+        return self.data_evento.strftime('%Y-%m-%dT%H:%M')
