@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from core.models import Evento
+from datetime import datetime, timedelta
+from django.http.response import Http404, JsonResponse
+from django.contrib.auth.models import User
 
 def login_user(request):
     return render(request, 'login.html')
@@ -25,7 +28,11 @@ def submit_login(request):
 @login_required(login_url='/login') #limitando acesso, apenas usuários logados, se não estiver é direcionado para a url /login
 def lista_eventos(request):
     usuario = request.user #pegando a sessão do usuário logado
-    evento = Evento.objects.filter(usuario=usuario) #filtrando apenas os eventos do usuário capturado
+    data_atual = datetime.now() - timedelta(hours=1) #no "- timedelta(hours=1)" faz com que os eventos que venceram até 1h atrás ainda apareçam
+
+    '''filtrando apenas os eventos do usuário capturado, django não tem > ou <, temos __gt para > e __lt para <, então,
+    vamos usar na coluna do DB __gt para pegar evento acima da data atual'''
+    evento = Evento.objects.filter(usuario=usuario, data_evento__gt=data_atual) 
     return render(request, 'agenda.html', {'eventos':evento})
 
 #aqui além de criarmos uma nova agenda vamos reaproveitar a criação de um novo evento em evento.html para também editar
@@ -66,7 +73,29 @@ def submit_evento(request): #botão submit do evento page form
 @login_required(login_url='/login')
 def delete_evento(request, id_evento):
     usuario = request.user
-    evento = Evento.objects.get(id=id_evento)
+
+    #bloco que trata exceção para o Error server (500), que exibirá agora "Not Found"
+    try:
+        evento = Evento.objects.get(id=id_evento)
+    except Exception:
+        raise Http404()
     if usuario == evento.usuario: #validando para que o usuario possa deletar apenas os seus eventos
         evento.delete()
+    else:
+        raise Http404()
+    #fim do bloco
+
     return redirect('/')
+
+@login_required(login_url='/login')
+def json_lista_evento(request):
+    usuario = request.user
+    evento = Evento.objects.filter(usuario=usuario).values('id', 'titulo') 
+    return JsonResponse(list(evento), safe=False) #safe=False significa que estamos passando lista e não um dicionário, isso habilita que seja possível fazer dessa forma
+
+
+def json_lista_evento_api(request, id_usuario):
+    usuario = User.objects.get(id=id_usuario)
+    evento = Evento.objects.filter(usuario=usuario).values('id', 'titulo') 
+    return JsonResponse(list(evento), safe=False) #safe=False significa que estamos passando lista e não um dicionário, isso habilita que seja possível fazer dessa forma
+

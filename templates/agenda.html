@@ -11,11 +11,12 @@
 
     {% for evento in eventos %}
         <ul>
-            <li>{{ evento.id }} - {{ evento.titulo }} - {{  evento.get_data_evento }}
-                (
-                    <a href="evento/?id={{ evento.id }}">Editar</a> -
-                    <a href="{% url 'delete_evento' evento.id %}">Excluir</a>
-                )
+            <li>
+                <div style={% if evento.get_evento_atrasado %} "color: red" {% endif %}> <!--utilizando uma condicional com a função para colocar a cor vermelha nos eventos atrazados em 1h--> 
+                    {{ evento.id }} - {{ evento.titulo }} - {{  evento.get_data_evento }}
+                    ( <a href="evento/?id={{ evento.id }}">Editar</a>
+                    - <a href="{% url 'delete_evento' evento.id %}">Excluir</a>)
+                </div>
             </li>
         </ul>    
     {% endfor %}
