@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from core import views
+from agenda import views
 from django.views.generic import RedirectView
 
 urlpatterns = [
