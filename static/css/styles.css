@@ -1,0 +1,15 @@
+@import url(./login.css);
+
+:root {
+    --cor-de-fundo: #070F2B;
+    --cor-da-fonte: #9290C3;
+    --cor-do-menu: #1B1A55;
+    --cor-do-fundo-2: #535C91;
+}
+
+body {
+    background-color: var(--cor-de-fundo);
+    color: var(--cor-da-fonte);
+    font-size: 16px;
+    font-family: 'Poppins';
+}
