@@ -14,18 +14,18 @@
 </head>
 <body>
     <section class="container">
-        <h1 class="container__title">Login</h1>
+        <h1 class="container__title">TELA DE ACESSO</h1>
         <form class="container__form" action="submit" method="POST">{% csrf_token %}
             <div class="container__form_box">
-                <label>Login: </label>
+                <label>Usuário: </label>
                 <input type="text" name="username">
-                <label>Password: </label>
+                <label>Senha: </label>
                 <input type="password" name="password">
                 <button type="submit">Entrar</button>
             </div>
         </form>
         {% for message in messages %}
-            <strong>Error! </strong> {{ message }}
+            <strong>{{ message }}</strong> 
         {% endfor %}
     </section>
 </body>
