@@ -32,8 +32,9 @@ def lista_eventos(request):
 
     '''filtrando apenas os eventos do usuário capturado, django não tem > ou <, temos __gt para > e __lt para <, então,
     vamos usar na coluna do DB __gt para pegar evento acima da data atual'''
-    evento = Evento.objects.filter(usuario=usuario, data_evento__gt=data_atual) 
+    evento = Evento.objects.filter(usuario=usuario, data_evento__gt=data_atual)
     return render(request, 'agenda.html', {'eventos':evento})
+ 
 
 #aqui além de criarmos uma nova agenda vamos reaproveitar a criação de um novo evento em evento.html para também editar
 @login_required(login_url='/login')

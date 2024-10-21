@@ -23,6 +23,8 @@ Gerenciando Usuario
   * Django
   * Conexão com banco de dados SQLite
   * Dotenv
+  * CSS - Folhas de Estilo em Cascata
+  * HTML - Linguagem de marcação de hipertexto
     
 * Pessoas Desenvolvedoras do Projeto
 
