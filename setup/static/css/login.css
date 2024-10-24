@@ -33,3 +33,7 @@
     font-weight: 700;
     font-size: 16px;
 }
+
+.container__message {
+    color: var(--cor-vermelho);
+}
